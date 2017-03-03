@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">Match</string>
+    <string name="bottom_record">record</string>
+    <string name="bottom_my">my</string>
+    <string name="bottom_friend">friend</string>
+    <string name="record_gross_income">Gross income</string>
+    <string name="record_total_expenditure">Total expenditure</string>
+    <string name="record_balance">Balance</string>
+    <string name="yuan">yuan</string>
+    <string name="type">Type</string>
+    <string name="cost">Cost</string>
+    <string name="lately_record">Recent consumption record</string>
+    <string name="add_record">Add a record</string>
+    <string name="statistic">Statistic</string>
+    <string name="money">Money</string>
+    <string name="money_hint">Please enter the amount</string>
+    <string name="type_food">Food</string>
+    <string name="type_wen">Water Electric</string>
+    <string name="add_income">Income</string>
+    <string name="add_expenditure">Expenditure</string>
+    <string name="out_type">Expenditure type</string>
+    <string name="describe">describe</string>
+    <string name="describe_hint">Please input description</string>
+    <string name="hint_name_phone">Phone number or user name</string>
+    <string name="hint_pwd">Your password</string>
+    <string name="login">Login</string>
+    <string name="name_null">Account cannot be empty</string>
+    <string name="pwd_null">Password cannot be empty</string>
+    <string name="name_err">The user does not exist</string>
+    <string name="pwd_err">Password error</string>
+    <string name="app_exit">Press the exit procedure again</string>
+    <string name="my_exit">Exit current accoun</string>
 </resources>

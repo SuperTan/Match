@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dimen50"
+              android:paddingLeft="@dimen/dimen22"
+              android:paddingRight="@dimen/dimen22"
+              android:padding="5dp"
+              android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/id_bottom_record_ll"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:src="@drawable/bottom_record"
+            android:layout_width="@dimen/dimen22"
+            android:layout_height="@dimen/dimen22"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bottom_record"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_bottom_friend_ll"
+
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:src="@drawable/bottom_friend"
+            android:layout_width="@dimen/dimen22"
+            android:layout_height="@dimen/dimen22"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bottom_friend"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_bottom_my_ll"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:src="@drawable/bottom_my"
+            android:layout_width="@dimen/dimen22"
+            android:layout_height="@dimen/dimen22"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bottom_my"/>
+
+    </LinearLayout>
+</LinearLayout>
