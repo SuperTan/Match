@@ -56,10 +56,10 @@ public class CostAdapter extends BaseAdapter {
         }
         Cost cost = mData.get(i);
         holder.mTime.setText(cost.getDate());
-        if (cost.getType().equals("in")) {
+        if (cost.getType().toLowerCase().equals("in")) {
             holder.mMoney.setText("+" + cost.getMoney());
             holder.mMoney.setTextColor(mContext.getResources().getColor(R.color.green));
-        } else if (cost.getType().equals("out")) {
+        } else if (cost.getType().toLowerCase().equals("out")) {
             holder.mMoney.setText("-" + cost.getMoney());
             holder.mMoney.setTextColor(mContext.getResources().getColor(R.color.red));
         }

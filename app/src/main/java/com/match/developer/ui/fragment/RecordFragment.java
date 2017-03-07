@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -15,13 +16,17 @@ import android.widget.TextView;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.match.developer.R;
 import com.match.developer.adapter.CostAdapter;
 import com.match.developer.model.Cost;
 import com.match.developer.ui.AddRecordActivity;
+import com.match.developer.util.MyUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +49,7 @@ import cn.bmob.v3.listener.QueryListener;
  * 记录
  */
 
-public class RecordFragment extends Fragment{
+public class RecordFragment extends Fragment {
     private static final String TAG = "RecordFragment";
     @BindView(R.id.id_record_piechart)
     PieChart mChart;
@@ -57,26 +62,117 @@ public class RecordFragment extends Fragment{
     TextView mBalance;
     @BindView(R.id.id_record_list)
     ListView mListView;
+    @BindView(R.id.id_record_type)
+    TextView mType;
+    @BindView(R.id.id_record_type_money)
+    TextView mTypeMoney;
 
     double income;
     double expenditure;
     double balance;
 
+    float quarterlyFood;
+    float quarterlyWen;
+    Cost mCostFoode;
+    Cost mCostWen;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_record, container,false);
+        View view = inflater.inflate(R.layout.fragment_record, container, false);
         ButterKnife.bind(this, view);
-        PieData mPieData = getPieData(4, 100);
-        showChart(mChart, mPieData);
-        getCostAll();
-        getLately();
+
+
         return view;
     }
 
+    @Override
+    public void onResume() {
+        getCostAll();
+        getLately();
+        slectAllout();
+        super.onResume();
+    }
+
+    private void slectAllout() {
+        BmobQuery<Cost> query = new BmobQuery<Cost>();
+        query.addWhereEqualTo("type", "out");
+        query.sum(new String[]{"money"});
+        query.groupby(new String[]{"typeDesc"});
+        query.findStatistics(Cost.class, new QueryListener<JSONArray>() {
+            @Override
+            public void done(JSONArray jsonArray, BmobException e) {
+                int length = jsonArray.length();
+                for (int i = 0; i < length; i++) {
+                    try {
+                        JSONObject obj = (JSONObject) jsonArray.get(i);
+                        String type = obj.getString("typeDesc");
+                        if (type.equals(MyUtils.COST_TYPE_OUT_FOOD)) {
+                            quarterlyFood = Float.parseFloat(obj.getDouble("_sumMoney") + "");//_(关键字)+首字母大写的列名
+                            mCostFoode = new Cost();
+                            mCostFoode.setTypeDesc(MyUtils.COST_TYPE_OUT_FOOD);
+                            mCostFoode.setMoney(quarterlyFood);
+
+                        } else if (type.equals(MyUtils.COST_TYPE_OUT_WEN)) {
+                            quarterlyWen = Float.parseFloat(obj.getDouble("_sumMoney") + "");//_(关键字)+首字母大写的列名
+                            mCostWen = new Cost();
+                            mCostWen.setTypeDesc(MyUtils.COST_TYPE_OUT_WEN);
+                            mCostWen.setMoney(quarterlyWen);
+                        }
+                        PieData mPieData = getPieData(2, 100);
+
+                        showChart(mChart, mPieData);
+                        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+                            @Override
+                            public void onValueSelected(Entry e, Highlight h) {
+                                Cost cost = (Cost) e.getData();
+                                String type = cost.getTypeDesc();
+                                if (type.equals(MyUtils.COST_TYPE_OUT_FOOD)) {
+                                    mType.setText(getResources().getString(R.string.type_food));
+                                    mTypeMoney.setText(cost.getMoney()+"");
+                                }else if(type.equals(MyUtils.COST_TYPE_OUT_WEN)){
+                                    mType.setText(getResources().getString(R.string.type_wen));
+                                    mTypeMoney.setText(cost.getMoney()+"");
+                                }else{
+                                    mType.setText(getResources().getString(R.string.type_out));
+                                    mTypeMoney.setText(expenditure+"");
+                                }
+//                                MyUtils.showToast("VAL SELECTED"+"Value: " + e.getY() + ", index: " + h.getX()+ ", DataSet index: " + h.getDataSetIndex());
+                            }
+
+                            @Override
+                            public void onNothingSelected() {
+
+                            }
+                        });
+                        mChart.setOnHoverListener(new View.OnHoverListener() {
+                            @Override
+                            public boolean onHover(View view, MotionEvent motionEvent) {
+                                return false;
+                            }
+                        });
+                        mChart.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                            @Override
+                            public void onFocusChange(View view, boolean b) {
+                                if(b){
+                                    MyUtils.showToast("选中");
+                                }else{
+
+                                    MyUtils.showToast("未选中");
+                                }
+                            }
+                        });
+
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
     /**
-     *
      * @param count 分成几部分
      * @param range
      */
@@ -95,28 +191,21 @@ public class RecordFragment extends Fragment{
          * 将一个饼形图分成四部分， 四部分的数值比例为14:14:34:38
          * 所以 14代表的百分比就是14%
          */
-        float quarterly1 = 14;
-        float quarterly2 = 14;
-        float quarterly3 = 34;
-        float quarterly4 = 38;
 
-        yValues.add(new PieEntry(quarterly1, 0));
-        yValues.add(new PieEntry(quarterly2, 1));
-        yValues.add(new PieEntry(quarterly3, 2));
-        yValues.add(new PieEntry(quarterly4, 3));
+
+        boolean add = yValues.add(new PieEntry(quarterlyFood, "", mCostFoode));
+        boolean add1 = yValues.add(new PieEntry(quarterlyWen, "", mCostWen));
 
         //y轴的集合
 //        PieDataSet pieDataSet = new PieDataSet(yValues,"sss");/*显示在比例图上*/
-        PieDataSet pieDataSet = new PieDataSet(yValues,"sssss");
+        PieDataSet pieDataSet = new PieDataSet(yValues, "");
         pieDataSet.setSliceSpace(0f); //设置个饼状图之间的距离
 
         ArrayList<Integer> colors = new ArrayList<Integer>();
 
         // 饼图颜色
-        colors.add(Color.rgb(205, 205, 205));
         colors.add(Color.rgb(114, 188, 223));
         colors.add(Color.rgb(255, 123, 124));
-        colors.add(Color.rgb(57, 135, 200));
 
         pieDataSet.setColors(colors);
 
@@ -163,7 +252,7 @@ public class RecordFragment extends Fragment{
 
 //      mChart.setOnAnimationListener(this);
 
-        pieChart.setCenterText("Quarterly Revenue");  //饼状图中间的文字
+        pieChart.setCenterText(getResources().getString(R.string.out_des));  //饼状图中间的文字
 
         //设置数据
         pieChart.setData(pieData);
@@ -183,7 +272,7 @@ public class RecordFragment extends Fragment{
     }
 
     @OnClick(R.id.id_record_toadd)
-    public void toAdd(){
+    public void toAdd() {
         getActivity().startActivity(new Intent(getActivity(), AddRecordActivity.class));
     }
 
@@ -203,24 +292,26 @@ public class RecordFragment extends Fragment{
                     try {
                         JSONObject obj = (JSONObject) jsonArray.get(i);
                         String type = obj.getString("type");
-                        if(type.equals("in")){
-                            income=obj.getDouble("_sumMoney");
-                            mIncome.setText(income+"");
-                        }else if(type.equals("out")){
-                            expenditure=obj.getDouble("_sumMoney");
-                            mExpenditure.setText(expenditure+"");
+                        if (type.equals("in")) {
+                            income = obj.getDouble("_sumMoney");
+                            mIncome.setText(income + "");
+                        } else if (type.equals("out")) {
+                            expenditure = obj.getDouble("_sumMoney");
+                            mExpenditure.setText(expenditure + "");
                         }
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     }
                 }
-                balance=income-expenditure;
-                if(balance>=0){
+                balance = income - expenditure;
+                if (balance >= 0) {
                     mBalance.setTextColor(getResources().getColor(R.color.green));
-                }else{
+                } else {
                     mBalance.setTextColor(getResources().getColor(R.color.red));
                 }
-                mBalance.setText( new DecimalFormat("######0.0").format(income-expenditure));
+                mBalance.setText(new DecimalFormat("######0.0").format(income - expenditure));
+                mType.setText(getResources().getString(R.string.type_out));
+                mTypeMoney.setText(expenditure+"");
             }
         });
 
@@ -229,14 +320,14 @@ public class RecordFragment extends Fragment{
     /**
      * 获取最近的消费记录 10条
      */
-    public  void getLately(){
+    public void getLately() {
         BmobQuery<Cost> query = new BmobQuery<Cost>();
         query.setLimit(10);
         query.order("-createdAt");
         query.findObjects(new FindListener<Cost>() {
             @Override
             public void done(List<Cost> list, BmobException e) {
-                mListView.setAdapter(new CostAdapter(getActivity(),list));
+                mListView.setAdapter(new CostAdapter(getActivity(), list));
             }
         });
     }

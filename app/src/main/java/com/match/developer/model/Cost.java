@@ -54,6 +54,12 @@ public class Cost extends BmobObject{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+	public String getTypeDesc() {
+		return typeDesc;
+	}
+
+	public void setTypeDesc(String typeDesc) {
+		this.typeDesc = typeDesc;
+	}
 }

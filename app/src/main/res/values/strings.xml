@@ -30,4 +30,10 @@
     <string name="pwd_err">Password error</string>
     <string name="app_exit">Press the exit procedure again</string>
     <string name="my_exit">Exit current accoun</string>
+    <string name="money_null">Please enter the amount</string>
+    <string name="desc_null">Please input description</string>
+    <string name="add_record_err">Failed to add record</string>
+    <string name="type_out_null">Please select expenditure type</string>
+    <string name="out_des">Expenditure type</string>
+    <string name="type_out">expenditure</string>
 </resources>

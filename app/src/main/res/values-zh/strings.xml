@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Match</string>
     <string name="bottom_record">记录</string>
     <string name="bottom_my">我</string>
     <string name="bottom_friend">联系人</string>
@@ -30,4 +31,10 @@
     <string name="pwd_err">密码错误</string>
     <string name="app_exit">再按一次退出程序</string>
     <string name="my_exit">退出当前账号</string>
+    <string name="money_null">请输入金额</string>
+    <string name="desc_null">请输入描述</string>
+    <string name="add_record_err">添加记录失败</string>
+    <string name="type_out_null">请选择支出类型</string>
+    <string name="out_des">支出类型</string>
+    <string name="type_out">支出</string>
 </resources>
