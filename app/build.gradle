@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.match.developer"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -17,33 +17,59 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+//    implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
+//    implementation 'com.android.support:appcompat-v7:25.1.1'
+//    androidTestImplementation 'junit:junit:4.12'
 
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    testCompile 'junit:junit:4.12'
-    compile 'cn.bmob.android:bmob-sdk:3.5.3'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+
+    //以下SDK开发者请根据需要自行选择
+    //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
+    //3.5.5：请务必查看下面注释[1]
+    implementation 'cn.bmob.android:bmob-sdk:3.6.3'
+
     //bmob-push：Bmob的推送包
-    compile 'cn.bmob.android:bmob-push:0.8'
+    implementation 'cn.bmob.android:bmob-push:0.8'
 
     //bmob-im：Bmob的即时通讯包，注意每个版本的im依赖特定版本的bmob-sdk，具体的依赖关系可查看下面注释[2]
-    compile 'cn.bmob.android:bmob-im:2.0.5@aar'
-    compile 'cn.bmob.android:bmob-sdk:3.4.7-aar'
-
-//    //bmob-sms ：Bmob单独为短信服务提供的包
-//    compile 'cn.bmob.android:bmob-sms:1.0.1'
+    implementation 'cn.bmob.android:bmob-im:2.1.0@aar'
 
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
-    compile 'cn.bmob.android:http-legacy:1.0'
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+    implementation 'cn.bmob.android:http-legacy:1.0'
+
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 
     //butterknife
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
+//    implementation "io.reactivex.rxjava2:rxjava:2.1.14"
+//    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+//    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+//    implementation 'com.squareup.retrofit2:adapter-rxjava:2.4.0'
+//    implementation 'io.reactivex:rxandroid:1.2.1'
+
+//    //处理rxjava内存泄漏
+//    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+//    // If you want to bind to Android-specific lifecycles
+//    implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+//    // If you want pre-written Activities and Fragments you can subclass as providers
+//    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+
+    implementation "com.google.zxing:core:3.3.3"
+    implementation 'com.yanzhenjie:permission:2.0.0-rc11'
 }

@@ -36,4 +36,13 @@
     <string name="type_out_null">Please select expenditure type</string>
     <string name="out_des">Expenditure type</string>
     <string name="type_out">expenditure</string>
+
+
+    <string name="if_login_user">&#xe608;</string>
+    <string name="if_login_pwd">&#xe652;</string>
+    <string name="if_main_record">&#xe65a;</string>
+    <string name="if_main_friend">&#xe628;</string>
+    <string name="if_main_my">&#xe635;</string>
+    <string name="if_back">&#xe605;</string>
+    <string name="if_more">&#xe684;</string>
 </resources>

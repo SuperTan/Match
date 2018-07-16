@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.match.developer.ui.MainActivity">
+    tools:context="com.match.developer.ui.activity.MainActivity">
 
     <FrameLayout
         android:id="@+id/id_main_content"

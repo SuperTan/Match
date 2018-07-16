@@ -25,7 +25,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.match.developer.R;
 import com.match.developer.adapter.CostAdapter;
 import com.match.developer.model.Cost;
-import com.match.developer.ui.AddRecordActivity;
+import com.match.developer.ui.activity.AddRecordActivity;
 import com.match.developer.util.MyUtils;
 
 import org.json.JSONArray;

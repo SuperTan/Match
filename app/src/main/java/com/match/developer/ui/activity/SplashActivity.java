@@ -1,4 +1,4 @@
-package com.match.developer.ui;
+package com.match.developer.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,7 +9,7 @@ import com.match.developer.R;
 import com.match.developer.model.User;
 import com.match.developer.util.MyUtils;
 
-import static com.match.developer.ui.MainActivity.user;
+import static com.match.developer.ui.activity.MainActivity.user;
 
 public class SplashActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.match.developer.ui;
+package com.match.developer.ui.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

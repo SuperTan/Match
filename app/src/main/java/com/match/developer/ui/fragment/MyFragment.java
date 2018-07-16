@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.match.developer.R;
-import com.match.developer.ui.LoginActivity;
-import com.match.developer.ui.SplashActivity;
+import com.match.developer.ui.activity.LoginActivity;
+import com.match.developer.ui.activity.SplashActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.match.developer.ui.AddRecordActivity">
+    tools:context="com.match.developer.ui.activity.AddRecordActivity">
 
     <LinearLayout
         android:padding="@dimen/dimen16"

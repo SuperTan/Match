@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_bg"
     android:gravity="center"
-    tools:context="com.match.developer.ui.LoginActivity">
+    tools:context="com.match.developer.ui.activity.LoginActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,10 +19,13 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="@dimen/dimen30"
-                android:layout_height="@dimen/dimen30"
-                android:src="@drawable/icon_user"/>
+
+            <com.match.developer.widget.IconfontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/if_login_user"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/id_login_username"
@@ -33,24 +35,26 @@
                 android:hint="@string/hint_name_phone"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/gray"/>
+                android:textColorHint="@color/gray" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginBottom="@dimen/dimen16"
-            android:background="@color/gray"/>
+            android:background="@color/gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
 
-            <ImageView
-                android:layout_width="@dimen/dimen30"
-                android:layout_height="@dimen/dimen30"
-                android:src="@drawable/icon_lock"/>
+            <com.match.developer.widget.IconfontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/if_login_pwd"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/id_login_password"
@@ -61,14 +65,14 @@
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:textColor="@color/white"
-                android:textColorHint="@color/gray"/>
+                android:textColorHint="@color/gray" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_marginBottom="@dimen/dimen16"
-            android:background="@color/gray"/>
+            android:background="@color/gray" />
 
         <TextView
             android:id="@+id/id_login_login"
@@ -79,7 +83,7 @@
             android:gravity="center"
             android:padding="@dimen/dimen16"
             android:text="@string/login"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </LinearLayout>

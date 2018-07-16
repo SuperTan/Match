@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -32,19 +32,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.AddRecordActivity"
+            android:name=".ui.activity.AddRecordActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.StatisticActivity"
+            android:name=".ui.activity.StatisticActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait">
         </activity>
     </application>
